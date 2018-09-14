@@ -1,0 +1,26 @@
+---
+  - hosts: testserver
+    var:
+      http_port: 80
+      max_clients: 200
+    remote_user: root
+    tasks:
+    - name: 使用Apache最新版本
+      yum:
+        name: httpd
+        state: latest
+#      - name: 配置文件
+#        template:
+#          src: /srv/httpd.j2
+#          dest: /etc/httpd.conf
+        notify:
+        - restart apache
+      - name: 确保Apache正在运行
+        service:
+          name: httpd
+          state: started
+      handlers:
+        - name: restart apache
+          service:
+            name: httpd
+            state: restarted
