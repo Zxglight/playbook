@@ -1,0 +1,9 @@
+---
+- hosts: testserver
+  vars:
+    file_name: ""
+  remote_user: root
+  tasks:
+    - name: 复制并解压文件到服务器上
+      unarchive:
+        src: "{{file_name}}.tar.gz"
