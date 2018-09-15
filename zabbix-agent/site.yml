@@ -11,5 +11,10 @@
       state: present
   - name: 安装zabbix agent
     template:
-      src: /template/zabbix_agentd.j2
-      dist: /etc/zabbix/zabbix_agentd.conf
+      src: template/zabbix_agentd.j2
+      dest: /etc/zabbix/zabbix_agentd.conf
+  - name: 启动zabbix agent
+    systemd:
+      name: zabbix-agent
+      state: started
+      enabled: yes
