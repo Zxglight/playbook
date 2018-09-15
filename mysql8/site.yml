@@ -9,6 +9,7 @@
       name: "{{rpm_package}}"
       status: present
   - name: 安装MySQL
-    yum: mysql* --skip-broken
-    update_cache: yes
-    state: latest
+    yum:
+      name: mysql* --skip-broken
+      update_cache: yes
+      state: latest
