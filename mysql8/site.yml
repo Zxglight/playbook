@@ -1,0 +1,14 @@
+---
+- host: testserver
+  vars:
+    rpm_package: "https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm"
+  remote_user: root
+  tasks:
+  - name: 安装MySQL rpm包
+    yum:
+      name: "{{rpm_package}}"
+      status: present
+  - name: 安装MySQL
+    yum: mysql* --skip-broken
+    update_cache: yes
+    state: latest

@@ -11,5 +11,4 @@
   - name: 安装zabbix agent
     yum:
       name: zabbix-agent
-      state: lastst
-      
+      state: latest
