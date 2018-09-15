@@ -1,5 +1,5 @@
 ---
-- host: testserver
+- hosts: testserver
   vars:
     rpm_package: "https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm"
   remote_user: root
