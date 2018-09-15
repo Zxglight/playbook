@@ -2,6 +2,7 @@
 - hosts: testserver
   vars:
     zabbix_rpm: 'http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-agent-3.4.14-1.el7.x86_64.rpm'
+    server_ip: '127.0.0.1'
   remote_user: root
   tasks:
   - name: 安装zabbix rpm包
@@ -9,6 +10,6 @@
       name: "{{zabbix_rpm}}"
       state: present
   - name: 安装zabbix agent
-    yum:
-      name: zabbix-agent
-      state: latest
+    template:
+      src: /template/zabbix_agentd.j2
+      dist: /etc/zabbix/zabbix_agentd.conf
