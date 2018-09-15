@@ -7,7 +7,7 @@
   - name: 安装MySQL rpm包
     yum:
       name: "{{rpm_package}}"
-      status: present
+      state: present
   - name: 安装MySQL
     yum:
       name: mysql* --skip-broken
