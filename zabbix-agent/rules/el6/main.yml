@@ -1,0 +1,14 @@
+---
+- name: 安装zabbix rpm包
+  yum:
+    name: "{{zabbix_rpm}}"
+    state: present
+- name: 安装zabbix agent
+  template:
+    src: "{{config_file}}"
+    dest: "{{dest_config}}"
+- name: 启动zabbix agent
+  service:
+    name: zabbix-agent
+    state: started
+    enabled: yes

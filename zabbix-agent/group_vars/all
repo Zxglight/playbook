@@ -1,0 +1,5 @@
+el7_url: http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-agent-3.4.14-1.el7.x86_64.rpm
+el6_url: http://repo.zabbix.com/zabbix/3.4/rhel/6/x86_64/zabbix-agent-3.4.14-1.el6.x86_64.rpm
+config_file: ../template/zabbix_agentd.j2
+server_ip: 127.0.0.1
+dest_config: /etc/zabbix/zabbix_agentd.conf
