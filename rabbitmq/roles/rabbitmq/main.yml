@@ -9,9 +9,22 @@
   template:
     src: template/rabbitmq.j2
     dest: /etc/rabbitme/rabbitmq.config
-- name: 复制插件配置文件
-  copy:
-    src: files/enabled_plugins
-    dest: /etc/rabbitmq/
-- name: 开启rabbitmq服务
-  shell: "sh /usr/lib/rabbitmq/bin/rabbitmq-server"
+- name: Enables the rabbitmq_management plugin
+  rabbitmq_plugin:
+    names: rabbitmq_management
+    state: enabled
+- name: add user and set permission
+  rabbitmq_user:
+    user: '{{rabbitmq_username}}'
+    password: '{{rabbitmq_password}}'
+    permissions:
+    - vhost: /
+      configure_priv: .*
+      read_priv: .*
+      write_priv: .*
+    state: present
+- name: 启动rabbitmq服务
+  service:
+    name: rabbitmq-server
+    enabled: yes
+    state: started

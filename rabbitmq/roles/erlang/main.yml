@@ -1,7 +1,20 @@
 ---
-- name: 将rpm文件复制到远程服务器
+- name: 复制readline文件
+  copy:
+    dest: /
+    src: files/compat-readline5-5.2-17.1.el6.x86_64.rpm
+- name: 复制socat文件
+  copy:
+    dest: /
+    src: files/socat-1.7.2.3-1.el6.x86_64.rpm
+- name: 复制erlang文件
   copy:
     dest: /
     src: files/erlang-20.3-1.el6.x86_64.rpm
+
+- name: 安装readline
+  shell: rpm -ivh /compat-readline5-5.2-17.1.el6.x86_64.rpm
+- name: 安装socat
+  shell: rpm -ivh /socat-1.7.2.3-1.el6.x86_64.rpm
 - name: 安装erlang rpm 文件
   shell: rpm -ivh /erlang-20.3-1.el6.x86_64.rpm
