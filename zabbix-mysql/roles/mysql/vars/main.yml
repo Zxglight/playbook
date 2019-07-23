@@ -1,0 +1,6 @@
+mysql:
+  username: root
+  password: password
+  sock_file: /var/lib/mysql/mysql.sock
+  port: 3306
+  host: 127.0.0.1

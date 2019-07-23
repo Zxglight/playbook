@@ -1,0 +1,21 @@
+---
+- name: 创建MySQL用户
+  mysql_user:
+    login_host: "{{mysql.host}}"
+    login_user: "{{mysql.username}}"
+    login_password: "{{mysql.password}}"
+    update_password: on_create
+    name: "zabbix"
+    password: "zabbix"
+    priv: "*.*"
+    host: "%"
+    state: present
+- name: 部署MySQL 配置文件(依赖zabbix agent)
+  copy:
+    src: userparameter_mysql.conf
+    dest: /etc/zabbix/zabbix_agentd.d/userparameter_mysql.conf
+- name: 部署SQL文件
+  template:
+    src: extension_mysql.sh.j2
+    dest: /etc/zabbix/zabbix_agent.d/extension_mysql.sh
+    mode: 777

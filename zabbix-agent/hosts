@@ -1,4 +1,7 @@
-[el6]
-agent1
-[el7]
-agent2
+[mysql-server]
+mysql-server1
+
+
+
+[oracle-server]
+oracle-server1

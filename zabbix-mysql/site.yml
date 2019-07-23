@@ -1,0 +1,6 @@
+---
+- name: 安装mysql agent
+  hosts: mysql-server
+  remote_user: root
+  roles:
+  - mysql

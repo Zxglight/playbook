@@ -1,6 +1,6 @@
 ---
-- name: 安装zabbix agent
+- name: 安装snmp
   hosts: all
   remote_user: root
   roles:
-  - agent
+  - snmp

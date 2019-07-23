@@ -1,0 +1,12 @@
+---
+# 重启agent服务
+- name: service started agent
+  service:
+    name: zabbix-agent
+    state: started
+    enabled: yes
+- name: system started agent
+  systemd:
+    name: zabbix-agent
+    state: started
+    enabled: yes

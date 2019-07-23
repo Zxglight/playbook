@@ -1,0 +1,6 @@
+---
+- name: 安装oracle agent
+  hosts: oracle-server
+  remote_user: root
+  roles:
+  - oracle

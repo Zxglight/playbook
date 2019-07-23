@@ -1,0 +1,49 @@
+---
+- name: install zabbix agent(el6)
+  block:
+  - name: copy rpm file to server
+    copy:
+      src: zabbix-agent-4.0.10-1.el6.x86_64.rpm
+      dest: "/tmp/zabbix-agent-4.0.10-1.el6.x86_64.rpm"
+  - name: 安装zabbix rpm包(el6)
+    yum:
+      name: zabbix-agent-4.0.10-1.el6.x86_64.rpm
+      state: present
+  - name: 配置zabbix agent
+    template:
+      src: zabbix_agentd.j2
+      dest: "/etc/zabbix/zabbix_agentd.conf"
+  - name: service started agent
+    service:
+      name: zabbix-agent
+      state: started
+      enabled: yes
+  when: "(ansible_os_family == 'RedHat' or ansible_os_family == 'CentOS') and ansible_distribution_major_version == '6'"
+  rescue:
+  - debug:
+      msg: "install zabbix agent(el6) error"
+
+- name: install zabbix agent(el7)
+  block:
+  - name: copy rpm file to server
+    copy:
+      src: "zabbix-agent-4.0.10-1.el6.x86_64.rpm"
+      dest: "/tmp/zabbix-agent-4.0.10-1.el6.x86_64.rpm"
+  - name: 安装zabbix rpm包(el7)
+    yum:
+      name: zabbix-agent-4.0.10-1.el7.x86_64.rpm
+      state: present
+  - name: 配置zabbix agent
+    template:
+      src: zabbix_agentd.j2
+      dest: "/etc/zabbix/zabbix_agentd.conf"
+  - name: system started agent
+    systemd:
+      name: zabbix-agent
+      state: started
+      enabled: yes
+  when: "(ansible_os_family == 'RedHat' or ansible_os_family == 'CentOS') and ansible_distribution_major_version == '7'"
+  rescue:
+  - debug:
+      msg: "install zabbix agent(el7) error"
+

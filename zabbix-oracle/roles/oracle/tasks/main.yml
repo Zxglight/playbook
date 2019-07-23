@@ -1,0 +1,8 @@
+---
+- name: copy deploy package to client
+  unarchive:
+    src: zbxdb-master.zip
+    dest: /opt/
+    mode: "1777"
+- name: init oracle client
+  command: /opt/ "{{oracle.username}}" "{{oracle.password}}"
