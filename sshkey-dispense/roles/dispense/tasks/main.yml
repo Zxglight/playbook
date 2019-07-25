@@ -1,0 +1,5 @@
+---
+- name: Set authorized key defining key options
+  authorized_key:
+    user: root
+    key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"

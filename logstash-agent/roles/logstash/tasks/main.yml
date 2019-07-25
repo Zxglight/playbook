@@ -1,0 +1,17 @@
+---
+#- name: copy logstash package to server
+#  unarchive:
+#    src: logstash-6.3.1.zip
+#    dest: /opt/
+#    mode: "1777"
+- name: 开始下载logstash
+  get_url:
+    url: ftp://ip/software/logstash-6.3.1.zip
+    dest: /opt/logstash-6.3.1.zip
+    timeout: 60
+- name: 开始解压logstash
+  shell: unzip -o -d /opt/ /opt/logstash-6.3.1.zip
+- name: 生成logstash启动配置文件
+  shell: echo {{content}} > {{configFile}}
+- name: 启动logstash
+  shell: nohup /bin/sh /opt/logstash-6.3.1/bin/logstash -r -f {{configFile}} -l /opt/logstash-6.3.1/log &
