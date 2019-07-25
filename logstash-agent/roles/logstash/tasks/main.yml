@@ -12,6 +12,8 @@
 - name: 开始解压logstash
   shell: unzip -o -d /opt/ /opt/logstash-6.3.1.zip
 - name: 生成logstash启动配置文件
-  shell: echo {{content}} > {{configFile}}
+  copy:
+    content: "{{content}}"
+    dest: "{{configFile}}"
 - name: 启动logstash
   shell: nohup /bin/sh /opt/logstash-6.3.1/bin/logstash -r -f {{configFile}} -l /opt/logstash-6.3.1/log &
