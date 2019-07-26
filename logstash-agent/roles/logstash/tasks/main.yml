@@ -6,14 +6,19 @@
 #    mode: "1777"
 - name: 开始下载logstash
   get_url:
-    url: ftp://ip/software/logstash-6.3.1.zip
+    url: ftp://192.168.0.130/software/logstash-6.3.1.zip
     dest: /opt/logstash-6.3.1.zip
     timeout: 60
 - name: 开始解压logstash
   shell: unzip -o -d /opt/ /opt/logstash-6.3.1.zip
 - name: 生成logstash启动配置文件
-  copy:
-    content: "{{content}}"
-    dest: "{{configFile}}"
+  shell: echo {{content}} > {{configFile}}
+- name: 检查logstash 启动状态
+  shell: ps -ef | grep /opt/logstash-6.3.1/config/logstash-simple.conf
+  register: output
+- name: 打印输出
+  debug:
+    var: output
 - name: 启动logstash
-  shell: nohup /bin/sh /opt/logstash-6.3.1/bin/logstash -r -f {{configFile}} -l /opt/logstash-6.3.1/log &
+  shell: nohup /bin/sh /opt/logstash-6.3.1/bin/logstash -r -f {{configFile}} -l /opt/logstash-6.3.1/log > /dev/null &
+  when: output.stdout_lines.2 is undefined
