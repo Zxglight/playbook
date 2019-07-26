@@ -6,7 +6,7 @@
 #    mode: "1777"
 - name: 开始下载logstash
   get_url:
-    url: ftp://192.168.0.130/software/logstash-6.3.1.zip
+    url: "ftp://{{ftpip}}/software/logstash-6.3.1.zip"
     dest: /opt/logstash-6.3.1.zip
     timeout: 60
 - name: 开始解压logstash
