@@ -1,0 +1,23 @@
+---
+- name: 检查服务器上是否存在snmp服务
+  shell: rpm -qa | grep net-snmp
+  register: verify
+
+- name: 开始安装snmp服务
+  block:
+  - name: 复制包到指定服务器(el6)
+    unarchive:
+      src: snmpel6.zip
+      dest: /tmp/
+    when: "(ansible_os_family == 'RedHat' or ansible_os_family == 'CentOS') and ansible_distribution_major_version == '6'"
+
+  - name: 复制包到指定服务器(el7)
+    unarchive:
+      src: snmpel7.zip
+      dest: /tmp/
+    when: "(ansible_os_family == 'RedHat' or ansible_os_family == 'CentOS') and ansible_distribution_major_version == '7'"
+
+  - name: 上传rpm包成功 开始安装
+    shell: "rpm -Uivh /tmp/snmp/*.rpm"
+
+  when: verify.stdout_lines.2 is undefined
